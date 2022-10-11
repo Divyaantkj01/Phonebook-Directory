@@ -7,6 +7,7 @@ void display() //display function
 	cout<<"Contact list is Empty!"<<endl;
 	else
 	{
+		bubblesort();
 		node *trav=head;
 		while(trav!=NULL)
 		{
