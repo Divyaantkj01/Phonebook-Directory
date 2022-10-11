@@ -1,0 +1,30 @@
+#include<iostream>
+#include<stdlib.h>
+#include<string>
+using namespace std;
+struct node
+{
+string name,number;
+node *next;
+
+};
+node *head=NULL,*newnode,*temp;
+void C_node_addition()
+{
+newnode=new node; 
+cout<<"Enter Name ";
+cin>>newnode->name;
+cout<<"Enter Mobile number";
+cin>>newnode->number; 
+newnode->next=NULL;
+if(head==NULL)
+{
+head=newnode;
+temp=newnode;
+}
+else
+{
+temp->next=newnode;
+temp=newnode;
+}
+}
