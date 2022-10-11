@@ -3,6 +3,31 @@
 #include <string>
 using namespace std;
 
+struct node
+{
+    string name, number;
+    node *next;
+};
+node *head = NULL, *newnode, *temp;
+void C_node_addition()
+{
+    newnode = new node;
+    cout << "Enter Name ";
+    cin >> newnode->name;
+    cout << "Enter Mobile number";
+    cin >> newnode->number;
+    newnode->next = NULL;
+    if (head == NULL)
+    {
+        head = newnode;
+        temp = newnode;
+    }
+    else
+    {
+        temp->next = newnode;
+        temp = newnode;
+    }
+}
 void search_contact()
 {
     node *search_node = head;
@@ -35,7 +60,7 @@ void search_contact()
     {
 
         cout << "\tIndex of Contact = " << count << endl;
-        cout<<"\n";
+        cout << "\n";
     }
     else
     {
@@ -43,49 +68,58 @@ void search_contact()
     }
 }
 
-
-void at_given(){
+void at_given()
+{
     int pos;
     node *next_node;
     temp = head;
-    cout<<"Enter your desired position from where you want to delete contact"<<endl;
-    cin>>pos;
+    cout << "Enter your desired position from where you want to delete contact" << endl;
+    cin >> pos;
 
-    if(head == NULL){
-        cout<<"List is empty"<<endl;
+    if (head == NULL)
+    {
+        cout << "List is empty" << endl;
     }
-    else if(pos > len){
-        cout<<"Invalid Position"<<endl;
+    else if (pos > len)
+    {
+        cout << "Invalid Position" << endl;
     }
 
-    else if(pos == 0){
+    else if (pos == 0)
+    {
         temp = head;
         head = head->next;
         delete temp;
-        cout<<"Contact has been deleted"<<endl;
+        cout << "Contact has been deleted" << endl;
     }
-    else{
-        for(int i = 1;i<pos;i++){
-            temp = temp->next;   
+    else
+    {
+        for (int i = 1; i < pos; i++)
+        {
+            temp = temp->next;
         }
         next_node = temp->next;
         temp->next = next_node->next;
         delete next_node;
-        cout<<"Contact has been deleted"<<endl;
+        cout << "Contact has been deleted" << endl;
     }
 }
 
-void clear_all(){
-    if(head == NULL){
-        cout<<"List is Empty"<<endl;
+void clear_all()
+{
+    if (head == NULL)
+    {
+        cout << "List is Empty" << endl;
     }
-    else{
+    else
+    {
         temp = head;
-        while(head != NULL){
+        while (head != NULL)
+        {
             head = head->next;
             delete temp;
         }
-        cout<<"All Contact list has been deleted"<<endl;
+        cout << "All Contact list has been deleted" << endl;
     }
 }
 
@@ -98,7 +132,6 @@ void menu()
     cout << "Enter 5 to clear ALL records" << endl;
 }
 
-
 int main()
 {
     int op;
@@ -109,30 +142,30 @@ int main()
         switch (op)
         {
         case 1:
-            cout<<"\n";
+            cout << "\n";
             C_node();
             break;
 
         case 2:
-            cout<<"\n";
-            len=0;
+            cout << "\n";
+            len = 0;
             display();
             break;
 
         case 3:
-            cout<<"\n";
+            cout << "\n";
             search_contact();
             break;
 
         case 4:
-            cout<<"\n";
+            cout << "\n";
             at_given();
             break;
 
         case 5:
             clear_all();
             break;
-            
+
         default:
             cout << "Invalid Option" << endl;
         }
