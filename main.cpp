@@ -9,14 +9,19 @@ struct node
     node *next;
 };
 node *head = NULL, *newnode, *temp;
-void C_node_addition()
+
+void C_node()
 {
     newnode = new node;
     cout << "Enter Name ";
     cin >> newnode->name;
+    
     cout << "Enter Mobile number";
     cin >> newnode->number;
+    cout<<"\n";
+    
     newnode->next = NULL;
+    
     if (head == NULL)
     {
         head = newnode;
@@ -28,6 +33,7 @@ void C_node_addition()
         temp = newnode;
     }
 }
+
 void search_contact()
 {
     node *search_node = head;
