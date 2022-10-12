@@ -8,20 +8,21 @@ struct node
     string name, number;
     node *next;
 };
-node *head = NULL, *newnode, *temp;
 
+node *head = NULL, *newnode, *temp;
+int len = 0;
 void C_node()
 {
     newnode = new node;
-    cout << "Enter Name ";
+    cout << " Enter Name ";
     cin >> newnode->name;
-    
-    cout << "Enter Mobile number";
+
+    cout << " Enter number ";
     cin >> newnode->number;
     cout<<"\n";
-    
+
     newnode->next = NULL;
-    
+
     if (head == NULL)
     {
         head = newnode;
@@ -33,48 +34,28 @@ void C_node()
         temp = newnode;
     }
 }
-//Sorting and display in phonebook
-
-
-
-void display() //display function
-
+void display()
 {
-
-	int len=0;
-
-	if (head==NULL)
-
-	cout<<"Contact list is Empty!"<<endl;
-
-	else
-
-	{
-
-		bubblesort();
-
-		node *trav=head;
-
-		while(trav!=NULL)
-
-		{
-
-			cout<<"\n\tFull Name"<<trav->name<<endl;
-
-			cout<<"\t\tPhone number"<<trav->number<<endl;
-
-			trav=trav->next;
-
-			len++;
-
-		}
-
-		cout<<"Total contacts in the list:"<<len<<endl;
-
-	}
-
+    
+    if (head == NULL)
+    {
+        cout << " Contact list is Empty " << endl;
+    }
+    else
+    {
+        temp = head;
+        while (temp != NULL)
+        {
+            cout << "\n\tFull Name: " << temp->name << endl;
+            cout << "\tPhone Number: " << temp->number << endl;
+            cout<<"\n";
+            temp = temp->next;
+            len++;
+        }
+        cout << "Total contacts in the list = " << len << endl;
+        cout<<"\n";
+    }
 }
-
 
 void search_contact()
 {
@@ -108,7 +89,7 @@ void search_contact()
     {
 
         cout << "\tIndex of Contact = " << count << endl;
-        cout << "\n";
+        cout<<"\n";
     }
     else
     {
@@ -116,60 +97,52 @@ void search_contact()
     }
 }
 
-void at_given()
-{
+
+void at_given(){
     int pos;
     node *next_node;
     temp = head;
-    cout << "Enter your desired position from where you want to delete contact" << endl;
-    cin >> pos;
+    cout<<"Enter your desired position from where you want to delete contact"<<endl;
+    cin>>pos;
 
-    if (head == NULL)
-    {
-        cout << "List is empty" << endl;
+    if(head == NULL){
+        cout<<"List is empty"<<endl;
     }
-    else if (pos > len)
-    {
-        cout << "Invalid Position" << endl;
+    else if(pos > len){
+        cout<<"Invalid Position"<<endl;
     }
 
-    else if (pos == 0)
-    {
+    else if(pos == 0){
         temp = head;
         head = head->next;
         delete temp;
-        cout << "Contact has been deleted" << endl;
+        cout<<"Contact has been deleted"<<endl;
     }
-    else
-    {
-        for (int i = 1; i < pos; i++)
-        {
-            temp = temp->next;
+    else{
+        for(int i = 1;i<pos;i++){
+            temp = temp->next;   
         }
         next_node = temp->next;
         temp->next = next_node->next;
         delete next_node;
-        cout << "Contact has been deleted" << endl;
+        cout<<"Contact has been deleted"<<endl;
     }
 }
 
-void clear_all()
-{
-    if (head == NULL)
-    {
-        cout << "List is Empty" << endl;
+void clear_all(){
+    if(head == NULL){
+        cout<<"List is Empty"<<endl;
     }
-    else
-    {
+    else{
         temp = head;
-        while (head != NULL)
-        {
+        while(head != NULL){
             head = head->next;
             delete temp;
         }
-        cout << "All Contact list has been deleted" << endl;
+        cout<<"All Contact list has been deleted"<<endl;
     }
 }
+
 
 void menu()
 {
@@ -190,30 +163,30 @@ int main()
         switch (op)
         {
         case 1:
-            cout << "\n";
+            cout<<"\n";
             C_node();
             break;
 
         case 2:
-            cout << "\n";
-            len = 0;
+            cout<<"\n";
+            len=0;
             display();
             break;
 
         case 3:
-            cout << "\n";
+            cout<<"\n";
             search_contact();
             break;
 
         case 4:
-            cout << "\n";
+            cout<<"\n";
             at_given();
             break;
 
         case 5:
             clear_all();
             break;
-
+            
         default:
             cout << "Invalid Option" << endl;
         }
