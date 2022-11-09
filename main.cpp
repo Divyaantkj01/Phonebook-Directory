@@ -1,5 +1,7 @@
 #include <iostream>
 #include <stdlib.h>
+#include <fstream>
+#include <sstream>
 #include <string>
 using namespace std;
 
@@ -7,17 +9,18 @@ struct node
 {
     string name, number;
     node *next;
+    node *prev;
 };
 
 node *head = NULL, *newnode, *temp;
 int len = 0;
-void C_node()
+void add_contact()
 {
     newnode = new node;
-    cout << " Enter Name ";
+    cout << " Enter Name: ";
     cin >> newnode->name;
 
-    cout << " Enter number ";
+    cout << " Enter Phone Number: ";
     cin >> newnode->number;
     cout << "\n";
 
@@ -33,6 +36,8 @@ void C_node()
         temp->next = newnode;
         temp = newnode;
     }
+
+    
 }
 void display()
 {
@@ -59,41 +64,78 @@ void display()
 
 void search_contact()
 {
-    node *search_node = head;
-    string srch;
+    node *temp = head;
+
     int count = 0;
 
-    cout << "Enter your desired contact you want to search: ";
-    cin >> srch;
-    bool found = true;
-    if (head == NULL)
+    cout << "***********" << endl;
+    cout << "  Press 1 if you want to Search By Name" << endl;
+    cout << "  Press 2 if you want to Search By Number" << endl;
+    int Ecommand;
+
+    cout << "  Enter the Command: ";
+    cin >> Ecommand;
+    string x, y;
+
+    if (Ecommand == 1)
     {
-        cout << "\nList is Empty " << endl;
-    }
-    else
-    {
-        while (search_node != NULL)
+        bool Echeck = false;
+        cout << "  Enter the Name to Search: ";
+        cin >> x;
+        while (temp != NULL)
         {
-            if (srch == search_node->name || srch == search_node->number)
+            if (temp->name == x)
             {
-                cout << "\n\tFull Name: " << search_node->name << endl;
-                cout << "\tPhone Number: " << search_node->number << endl;
-                found = true;
+                cout << "***********" << endl;
+                cout << "Name: " << temp->name << endl;
+                cout << "Phone Number: " << temp->number << endl;
+                cout << "***********" << endl;
+                Echeck = true;
                 break;
             }
-            search_node = search_node->next;
+            temp = temp->next;
             count++;
         }
-    }
-    if (found == true)
-    {
+        if (Echeck == true)
+        {
 
-        cout << "\tIndex of Contact = " << count << endl;
-        cout << "\n";
+            cout << "\tIndex of Contact = " << count << endl;
+            cout << "\n";
+        }
+        else
+        {
+            cout << "Desired contact not found" << endl;
+        }
     }
-    else
+
+    else if (Ecommand == 2)
     {
-        cout << "Desired contact not found" << endl;
+        bool Echeck = false;
+        cout << "  Enter the Number to Edit: ";
+        cin >> y;
+        while (temp != NULL)
+        {
+            if (temp->number == y)
+            {
+                cout << "***********" << endl;
+                cout << "Name: " << temp->name << endl;
+                cout << "Phone Number: " << temp->number << endl;
+                cout << "***********" << endl;
+                Echeck = true;
+                break;
+            }
+            temp = temp->next;
+        }
+        if (Echeck == true)
+        {
+
+            cout << "\tIndex of Contact = " << count << endl;
+            cout << "\n";
+        }
+        else
+        {
+            cout << "Desired contact not found" << endl;
+        }
     }
 }
 
@@ -152,12 +194,12 @@ void clear_all()
     }
 }
 
-int EditContacts()
+void EditContacts()
 {
     node *temp = head;
     cout << "***********" << endl;
-    cout << "  Press 1 if you want to Search By Name" << endl;
-    cout << "  Press 2 if you want to Search By Number" << endl;
+    cout << "  Press 1 if you want to Edit By Name" << endl;
+    cout << "  Press 2 if you want to Edit By Number" << endl;
     int Ecommand;
     cout << "  Enter the Command: ";
     cin >> Ecommand;
@@ -257,6 +299,27 @@ int EditContacts()
         cout << "  You Enter Wrong Command ... Try Again" << endl;
     }
 }
+void OfflineSave()
+{
+    node *temp = head;
+    ofstream myfile("contactbook.txt");
+    if (myfile.is_open())
+    {
+        while (temp != NULL)
+        {
+            myfile << temp->name << endl;
+            myfile << temp->number << endl;
+            temp = temp->next;
+        }
+        myfile.close();
+        
+    }
+    else
+    {
+        cout << "  Thanks file is empty." << endl;
+    }
+}
+
 
 void menu()
 {
@@ -266,6 +329,7 @@ void menu()
     cout << "Enter 4 to delete contact" << endl;
     cout << "Enter 5 to clear ALL records" << endl;
     cout << "Enter 6 to Edit Contact" << endl;
+    
 }
 
 int main()
@@ -279,7 +343,8 @@ int main()
         {
         case 1:
             cout << "\n";
-            C_node();
+            add_contact();
+            OfflineSave();
             break;
 
         case 2:
